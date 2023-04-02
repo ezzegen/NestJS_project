@@ -1,0 +1,779 @@
+{
+	"info": {
+		"_postman_id": "3de5a8e4-76db-4696-97aa-84aed8f6b498",
+		"name": "NestJs Project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Roles",
+			"item": [
+				{
+					"name": "1. insert admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"value\": \"ADMIN\",\r\n    \"description\": \"Administrator\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/role/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"role",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. insert other role",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"value\": \"USER\",\r\n    \"description\": \"User\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/role/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"role",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all roles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/role",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"role"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add roles",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6InN1cGVydXNlckBnbWFpbC5jb20iLCJpZCI6MSwicm9sZSI6W3siaWQiOjEsInZhbHVlIjoiQURNSU4iLCJkZXNjcmlwdGlvbiI6IkFkbWluaXN0cmF0b3IifSx7ImlkIjoyLCJ2YWx1ZSI6IkNMSUVOVCIsImRlc2NyaXB0aW9uIjoiQ2xpZW50In1dLCJpYXQiOjE2ODA0Mzg3OTksImV4cCI6MTY4MDUyNTE5OX0.sPP5yYdfJBohEYZHhznbSPBV5cCDhpEVX35y4-2GPg8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"value\": \"CLIENT\",\r\n    \"userId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/user/role",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"role"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authorization",
+			"item": [
+				{
+					"name": "registration superuser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"superuser@gmail.com\",\r\n    \"password\": \"mYverYDifficultP@ssWord\",\r\n    \"name\": \"Nika\",\r\n    \"surname\": \"Bakhareva\",\r\n    \"age\": 27,\r\n    \"phone\": 89600000000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/auth/registration",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"registration"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"superuser@gmail.com\",\r\n    \"password\": \"mYverYDifficultP@ssWord\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reg other user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"bakhnika95@gmail.com\",\r\n    \"password\": \"mYverYDifficultP@ssWord\",\r\n    \"name\": \"Veronica\",\r\n    \"surname\": \"Bakhareva\",\r\n    \"age\": 27,\r\n    \"phone\": 89600000000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/auth/registration",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"registration"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6InN1cGVydXNlckBnbWFpbC5jb20iLCJpZCI6MSwicm9sZSI6W3siaWQiOjEsInZhbHVlIjoiQURNSU4iLCJkZXNjcmlwdGlvbiI6IkFkbWluaXN0cmF0b3IifV0sImlhdCI6MTY4MDQ0MTQyOCwiZXhwIjoxNjgwNTI3ODI4fQ.75D0DIz9FxKVodEq19qH4ikIyzLPWCu3vD2WVnbaDJ8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer ",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "searchKey",
+									"value": "",
+									"type": "default"
+								},
+								{
+									"key": "title",
+									"value": "",
+									"type": "default"
+								},
+								{
+									"key": "txt",
+									"value": "",
+									"type": "default"
+								},
+								{
+									"key": "img",
+									"value": "",
+									"type": "default"
+								},
+								{
+									"key": "group",
+									"value": "",
+									"type": "default"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/user/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "one user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6InN1cGVydXNlckBnbWFpbC5jb20iLCJpZCI6MSwicm9sZSI6W3siaWQiOjEsInZhbHVlIjoiQURNSU4iLCJkZXNjcmlwdGlvbiI6IkFkbWluaXN0cmF0b3IifV0sImlhdCI6MTY4MDQ0MTQyOCwiZXhwIjoxNjgwNTI3ODI4fQ.75D0DIz9FxKVodEq19qH4ikIyzLPWCu3vD2WVnbaDJ8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/user/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6InN1cGVydXNlckBnbWFpbC5jb20iLCJpZCI6MSwicm9sZSI6W3siaWQiOjEsInZhbHVlIjoiQURNSU4iLCJkZXNjcmlwdGlvbiI6IkFkbWluaXN0cmF0b3IifV0sImlhdCI6MTY4MDQ0MTQyOCwiZXhwIjoxNjgwNTI3ODI4fQ.75D0DIz9FxKVodEq19qH4ikIyzLPWCu3vD2WVnbaDJ8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"property\": \"age\",\r\n    \"value\": \"28\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/user/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "del user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6InN1cGVydXNlckBnbWFpbC5jb20iLCJpZCI6MSwicm9sZSI6W3siaWQiOjEsInZhbHVlIjoiQURNSU4iLCJkZXNjcmlwdGlvbiI6IkFkbWluaXN0cmF0b3IifV0sImlhdCI6MTY4MDQ0MTQyOCwiZXhwIjoxNjgwNTI3ODI4fQ.75D0DIz9FxKVodEq19qH4ikIyzLPWCu3vD2WVnbaDJ8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/user/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Text Block",
+			"item": [
+				{
+					"name": "1. add new Text Block",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "searchKey",
+									"value": "main-parking-text",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "Free parking",
+									"type": "text"
+								},
+								{
+									"key": "txt",
+									"value": "Your car will always find a place in our parking lot.",
+									"type": "text"
+								},
+								{
+									"key": "group",
+									"value": "main-page",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/Алексей/Desktop/Ника/Стикеры/Фото/Картинки/IMG_1066.JPG"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/content/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"content",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. add new Text Block",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "searchKey",
+									"value": "promo-april-sale-text",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "April sale!",
+									"type": "text"
+								},
+								{
+									"key": "txt",
+									"value": "When ordering before the end of April, a 50% discount.",
+									"type": "text"
+								},
+								{
+									"key": "group",
+									"value": "promo-page",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/Алексей/Desktop/Ника/Стикеры/Фото/Картинки/IMG_1066.JPG"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/content",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"content"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all Text Block or one by key",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"searchKey\": \"main-parking-text\",\r\n    \"title\": \"Free parking\",\r\n    \"txt\": \"Your car will always find a place in our parking lot.\",\r\n    \"img\": \"https://img.freepik.com/free-icon/parking_318-478521.jpg\",\r\n    \"group\": \"main-page\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/content?searchKey=promo-april-sale-text",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"content"
+							],
+							"query": [
+								{
+									"key": "searchKey",
+									"value": "promo-april-sale-text"
+								},
+								{
+									"key": "searchKey",
+									"value": "main-parking-text",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "filter Text Block by group",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/content/group/?group=promo-page",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"content",
+								"group",
+								""
+							],
+							"query": [
+								{
+									"key": "group",
+									"value": "promo-page"
+								},
+								{
+									"key": "group",
+									"value": "main-page",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update Text Block by property",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6InN1cGVydXNlckBnbWFpbC5jb20iLCJpZCI6MSwicm9sZSI6W3siaWQiOjEsInZhbHVlIjoiQURNSU4iLCJkZXNjcmlwdGlvbiI6IkFkbWluaXN0cmF0b3IifSx7ImlkIjoyLCJ2YWx1ZSI6IkNMSUVOVCIsImRlc2NyaXB0aW9uIjoiQ2xpZW50In1dLCJpYXQiOjE2ODA0Mzg3OTksImV4cCI6MTY4MDUyNTE5OX0.sPP5yYdfJBohEYZHhznbSPBV5cCDhpEVX35y4-2GPg8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"value\": \"main-free-parking-text\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/content/1?property=searchKey",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"content",
+								"1"
+							],
+							"query": [
+								{
+									"key": "property",
+									"value": "searchKey"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "del Text Block",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6InN1cGVydXNlckBnbWFpbC5jb20iLCJpZCI6MSwicm9sZSI6W3siaWQiOjEsInZhbHVlIjoiQURNSU4iLCJkZXNjcmlwdGlvbiI6IkFkbWluaXN0cmF0b3IifV0sImlhdCI6MTY4MDQ0MTQyOCwiZXhwIjoxNjgwNTI3ODI4fQ.75D0DIz9FxKVodEq19qH4ikIyzLPWCu3vD2WVnbaDJ8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/content/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"content",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "File",
+			"item": [
+				{
+					"name": "Upload file",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6InN1cGVydXNlckBnbWFpbC5jb20iLCJpZCI6MSwicm9sZSI6W3siaWQiOjEsInZhbHVlIjoiQURNSU4iLCJkZXNjcmlwdGlvbiI6IkFkbWluaXN0cmF0b3IifSx7ImlkIjoyLCJ2YWx1ZSI6IkNMSUVOVCIsImRlc2NyaXB0aW9uIjoiQ2xpZW50In1dLCJpYXQiOjE2ODA0Mzg3OTksImV4cCI6MTY4MDUyNTE5OX0.sPP5yYdfJBohEYZHhznbSPBV5cCDhpEVX35y4-2GPg8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/Алексей/Desktop/Ника/Стикеры/Фото/Картинки/IMG_1323.JPG"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/file/upload",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"file",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Clear files",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6InN1cGVydXNlckBnbWFpbC5jb20iLCJpZCI6MSwicm9sZSI6W3siaWQiOjEsInZhbHVlIjoiQURNSU4iLCJkZXNjcmlwdGlvbiI6IkFkbWluaXN0cmF0b3IifSx7ImlkIjoyLCJ2YWx1ZSI6IkNMSUVOVCIsImRlc2NyaXB0aW9uIjoiQ2xpZW50In1dLCJpYXQiOjE2ODA0Mzg3OTksImV4cCI6MTY4MDUyNTE5OX0.sPP5yYdfJBohEYZHhznbSPBV5cCDhpEVX35y4-2GPg8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/file/clear",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"file",
+								"clear"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
