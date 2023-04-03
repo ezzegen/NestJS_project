@@ -23,14 +23,15 @@ export class FileService {
     nameTable: string | null = null): Promise<FileEntity> {
     try {
       const editedFileName = this.loadAndUpdateFileName(file)
-      // save file in the DB file
+
+      // Save file in the table file
       const saveFile = await this.fileEntityRepository.save({
         essenceId: tableId,
         essenceTable: nameTable,
         fileName: file
       })
 
-      // update name file
+      // Encode file name
       saveFile.fileName = editedFileName
       return await this.fileEntityRepository.save(saveFile);
     } catch (e) {
@@ -39,28 +40,43 @@ export class FileService {
   }
 
   loadAndUpdateFileName(file) {
-    // edit name file
+    // Edit name file
     const editedFileName = uuid.v4() + '.jpg';  // generation of unique file name
-
     const filePath = path.resolve(__dirname, '..', 'static');
 
-    //path check
+    // Path check
     if (!fs.existsSync(path.join(filePath))) {
-      console.log(`Path.join -- ${path.join(filePath)}`)
-      fs.mkdirSync(filePath, {recursive: true})
+      fs.mkdir(filePath, {recursive: true}, (err) => {
+        if (err) throw err;
+        console.log(`Directory ${filePath} successfully created.`)
+      })
     }
-    // write file
-    fs.writeFileSync(path.join(filePath, editedFileName), file.buffer)
+
+    // Write file
+    fs.writeFile(path.join(filePath, editedFileName), file.buffer, (err) => {
+      if (err) throw err;
+      console.log(`File ${editedFileName} successfully wrote in ${filePath}`)
+    })
     return editedFileName;
   }
 
   async deleteUnusedFiles() {
+    // Search files by criteria.
     const file = await this.fileEntityRepository
       .createQueryBuilder("file")
       .where(':startDate - file.createdAt > :hour', {startDate: new Date(), hour: 3600})
       .orWhere({essenceTable: IsNull()})
       .getMany();
+
+    // Deleting files from /static
+    file.forEach((obj: FileEntity) => {
+      const pathFile = path.resolve(__dirname, '..', 'static', obj.fileName);
+      fs.unlink(pathFile, err => {
+        if(err) throw err;
+        console.log(`File ${pathFile} successfully deleted.`);
+      });
+    });
+
     return await this.fileEntityRepository.remove(file);
   }
 }
-

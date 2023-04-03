@@ -11,6 +11,8 @@ import { UserModule } from "../user/user.module";
   providers: [AuthService],
   imports: [
     forwardRef(() =>  UserModule), // for prevention error of circular dependency between modules.
+
+    // Registration module JwtModule
     JwtModule.register({
       secret: process.env.PRIVATE_KEY ?? 'SECRET',
       signOptions: {

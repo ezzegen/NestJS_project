@@ -19,6 +19,7 @@ import { TextBlockUpdateDto } from "./dto/text-block-update.dto";
 import { TextBlockEntity } from "./entities/text-block.entity";
 import { Roles } from "../auth/auth-roles.decorator";
 import { RoleAuthGuard } from "../auth/guard/role-auth.guard";
+import { JwtAuthGuard } from "../auth/guard/jwt-auth.guard";
 
 @ApiTags('Text Blocks')
 @Controller('content')
@@ -29,6 +30,7 @@ export class TextBlockController {
 
   @ApiOperation({summary: 'Creating text block'})  //dec for doc, description
   @ApiResponse({status: 201, type: TextBlockEntity})  //dec for doc
+  @UseGuards(JwtAuthGuard)
   @Post()
   @UseInterceptors(FileInterceptor('file'))
   createTextBlock(
@@ -39,6 +41,7 @@ export class TextBlockController {
   }
 
   @ApiOperation({summary: 'All text blocks or one if there is a query searchKey'})
+  @ApiResponse({status: 200})
   @Get('/')
   getTextBlock(@Query(
     'searchKey'
@@ -47,6 +50,7 @@ export class TextBlockController {
   }
 
   @ApiOperation({summary: 'Filter by group'})
+  @ApiResponse({status: 200})
   @Get('group')
   getTextBlockByGroup(@Query('group') group: string): Promise<TextBlockEntity[]> {
     return this.textBlockService.getTextBlockByGroup(group);
@@ -64,6 +68,7 @@ export class TextBlockController {
   }
 
   @ApiOperation({summary: 'Delete text block. Only for ADMIN.'})
+  @ApiResponse({status: 205})
   @Roles('ADMIN')
   @UseGuards(RoleAuthGuard)
   @Delete(':id')

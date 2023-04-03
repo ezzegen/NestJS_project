@@ -25,6 +25,7 @@ export class FileController {
   }
 
   @ApiOperation({summary: 'Delete unused files. Only for ADMIN.'})
+  @ApiResponse({status: 205})
   @Roles('ADMIN')
   @UseGuards(RoleAuthGuard)
   @Delete('/clear')

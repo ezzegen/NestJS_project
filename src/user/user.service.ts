@@ -8,6 +8,7 @@ import { UserCreateDto } from "./dto/user-create.dto";
 import { RoleAddDto } from "./dto/role-add.dto";
 import { UserUpdateDto } from "./dto/user-update.dto";
 import { RoleService } from "../role/role.service";
+import { RoleEntity } from "../role/role.entity";
 
 @Injectable()
 export class UserService {
@@ -20,6 +21,9 @@ export class UserService {
     @InjectRepository(
       UserAuthEntity
     ) private userAuthRepository: Repository<UserAuthEntity>,
+    @InjectRepository(
+      RoleEntity
+    ) private roleRepository: Repository<RoleEntity>,
     // NB! Add RoleService in <exports> role.module and RoleModule in <imports> user.module!
     private roleService: RoleService,
   ) {
@@ -27,9 +31,17 @@ export class UserService {
 
   async createUser(dto: UserCreateDto): Promise<UserAuthEntity>{
     let user_role = await this.roleService.getRoleByValue('USER')
+
+    // Create superuser (ADMIN)
     if (dto.email == process.env.SUPER_USER) {
+      const admin = await this.roleRepository.create({
+        value: 'ADMIN',
+        description: 'Administrator'});
+      await this.roleRepository.save(admin);
       user_role = await this.roleService.getRoleByValue('ADMIN')
     }
+
+    // Save data in two tables: user_auth and user_profile
     const user_auth = await this.userAuthRepository.save({
       email: dto.email,
       password: dto.password,

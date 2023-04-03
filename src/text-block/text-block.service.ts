@@ -24,16 +24,24 @@ export class TextBlockService {
     dto: TextBlockCreateDto,
     imgFile: any,
     ): Promise<TextBlockEntity> {
+    // Saving data in table 'text_block'
     const textBlock = await this.textBlockRepository.save({ ... dto})
+
+    // Get arguments for a function to write file information to the 'file' table.
     const textBlockId = await this.textBlockRepository.getId(textBlock)
     const nameTable = 'text_block';
+
+    // Call func from fileService and getting new file name.
     const imgName = await this.fileService.uploadFile(imgFile, textBlockId, nameTable);
+
+    // Rewrite new file-name in table 'text_block'
     textBlock.file = imgName;
     return await this.textBlockRepository.save(textBlock);
 
   }
 
   async getTextBlock (key: string): Promise<TextBlockEntity[] | TextBlockEntity>{
+    // Searching block by unique search_key.
     if (key) {
       return await this.textBlockRepository.findOne({
         where: { searchKey: key },
@@ -44,6 +52,7 @@ export class TextBlockService {
   }
 
   async getTextBlockByGroup(group_name: string): Promise<TextBlockEntity[]> {
+    // Filter blocks by group
     return await this.textBlockRepository.find({
       where: {group: group_name},
       relations: {file: true}
@@ -54,6 +63,7 @@ export class TextBlockService {
     blockId: number,
     property: string,
     dto: TextBlockUpdateDto): Promise<any> {
+    // Update block using query key 'property'
     return await this.textBlockRepository.update(
       {id: blockId }, {[property]: dto.value})
   }

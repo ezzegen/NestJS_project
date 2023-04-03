@@ -20,9 +20,8 @@ export class TextBlockCreateDto {
 
   @ApiProperty({
     example: 'sale-logo.png',
-    description: 'Image file path or url of img'
+    description: 'Image file or url of img'
   })
-  @IsString({ message: 'Always string!' })
   file: any;
 
   @ApiProperty({

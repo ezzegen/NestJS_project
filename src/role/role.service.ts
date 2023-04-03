@@ -19,11 +19,11 @@ export class RoleService {
   }
 
   async getAllRoles(): Promise<RoleEntity[]> {
-    return await this.roleRepository.find();
+    return await this.roleRepository.find({relations: {auth: true}});
   }
 
   async getRoleByValue(value: string): Promise<RoleEntity> {
-    return await this.roleRepository.findOne({where: {value}});
+    return await this.roleRepository.findOne({where: {value}, relations: {auth: true}});
   }
 
   async deleteRole(roleId: number): Promise<any> {
