@@ -1,11 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToMany} from "typeorm";
-import { ApiProperty } from "@nestjs/swagger";
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany} from 'typeorm';
+import { ApiProperty } from '@nestjs/swagger';
 
-import { IRoleCreationAttrs } from "./role.inteface";
-import { UserAuthEntity } from "../user/entity/user-auth.entity";
+import { IRoleCreationAttrs } from './role.inteface';
+import { UserAuthEntity } from '../user/entity/user-auth.entity';
 
 // Model of table for user's profile.
-@Entity({name: 'role'})
+@Entity({ name: 'role' })
 export class RoleEntity implements IRoleCreationAttrs {
 
   @ApiProperty({ example: '1', description: 'Unique identifier' }) // dec for doc
@@ -23,6 +23,6 @@ export class RoleEntity implements IRoleCreationAttrs {
   @ManyToMany(
     () => UserAuthEntity,
     (auth) => auth.role,
-    {onDelete: "CASCADE"})
+    { onDelete: "CASCADE" })
   auth: UserAuthEntity[];
 }

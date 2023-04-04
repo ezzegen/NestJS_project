@@ -3,15 +3,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 
 import { UserModule } from './user/user.module';
-import { UserAuthEntity } from "./user/entity/user-auth.entity";
-import { UserProfileEntity } from "./user/entity/user-profile.entity";
-import { RoleEntity } from "./role/role.entity";
-import { TextBlockEntity } from "./text-block/entities/text-block.entity";
-import { FileEntity } from "./file/file.entity";
+import { UserAuthEntity } from './user/entity/user-auth.entity';
+import { UserProfileEntity } from './user/entity/user-profile.entity';
+import { RoleEntity } from './role/role.entity';
+import { TextBlockEntity } from './text-block/entities/text-block.entity';
+import { FileEntity } from './file/file.entity';
 import { RoleModule } from './role/role.module';
 import { AuthModule } from './auth/auth.module';
 import { TextBlockModule } from './text-block/text-block.module';
-import { FileModule } from "./file/file.module";
+import { FileModule } from './file/file.module';
 
 @Module({
   imports: [
@@ -42,7 +42,7 @@ import { FileModule } from "./file/file.module";
     RoleModule,
     AuthModule,
     TextBlockModule,
-    FileModule
+    FileModule,
   ],
 })
 export class AppModule {}

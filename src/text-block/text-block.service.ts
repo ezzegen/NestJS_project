@@ -1,34 +1,32 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
-import { TextBlockCreateDto } from "./dto/text-block-create.dto";
-import { TextBlockEntity } from "./entities/text-block.entity";
-import { TextBlockUpdateDto } from "./dto/text-block-update.dto";
-import { FileService } from "../file/file.service";
-import { FileEntity } from "../file/file.entity";
+import { TextBlockCreateDto } from './dto/text-block-create.dto';
+import { TextBlockEntity } from './entities/text-block.entity';
+import { TextBlockUpdateDto } from './dto/text-block-update.dto';
+import { FileService } from '../file/file.service';
+import { FileEntity } from '../file/file.entity';
 
 @Injectable()
 export class TextBlockService {
   constructor(
-    @InjectRepository(
-      TextBlockEntity
-    ) private textBlockRepository: Repository<TextBlockEntity>,
-    @InjectRepository(
-      FileEntity
-    ) private fileEntityRepository: Repository<FileEntity>,
+    @InjectRepository(TextBlockEntity)
+    private textBlockRepository: Repository<TextBlockEntity>,
+    @InjectRepository(FileEntity)
+    private fileEntityRepository: Repository<FileEntity>,
     private fileService: FileService
   ) {}
 
-  async createTextBlock (
+  async createTextBlock(
     dto: TextBlockCreateDto,
     imgFile: any,
-    ): Promise<TextBlockEntity> {
+  ): Promise<TextBlockEntity> {
     // Saving data in table 'text_block'
-    const textBlock = await this.textBlockRepository.save({ ... dto})
+    const textBlock = await this.textBlockRepository.save({ ... dto });
 
     // Get arguments for a function to write file information to the 'file' table.
-    const textBlockId = await this.textBlockRepository.getId(textBlock)
+    const textBlockId = await this.textBlockRepository.getId(textBlock);
     const nameTable = 'text_block';
 
     // Call func from fileService and getting new file name.
@@ -40,12 +38,12 @@ export class TextBlockService {
 
   }
 
-  async getTextBlock (key: string): Promise<TextBlockEntity[] | TextBlockEntity>{
+  async getTextBlock(key: string): Promise<TextBlockEntity[] | TextBlockEntity> {
     // Searching block by unique search_key.
     if (key) {
       return await this.textBlockRepository.findOne({
         where: { searchKey: key },
-        relations: {file: true}
+        relations: { file: true },
       });
     }
     return await this.textBlockRepository.find({relations: {file: true}});
@@ -62,10 +60,12 @@ export class TextBlockService {
   async updateTextBlock(
     blockId: number,
     property: string,
-    dto: TextBlockUpdateDto): Promise<any> {
+    dto: TextBlockUpdateDto,
+  ): Promise<any> {
     // Update block using query key 'property'
     return await this.textBlockRepository.update(
-      {id: blockId }, {[property]: dto.value})
+      { id: blockId }, { [property]: dto.value }
+    );
   }
 
   async deleteTextBlock(blockId: number): Promise<any> {
